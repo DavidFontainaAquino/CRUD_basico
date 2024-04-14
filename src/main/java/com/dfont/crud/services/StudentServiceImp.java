@@ -26,8 +26,8 @@ public class StudentServiceImp implements StudentService {
 	}
 
 	@Override
-	public void addStudent(StudentDTO studentDto) {
-		repository.save(dtoToDao(studentDto));
+	public Student saveStudent(StudentDTO studentDto) {
+		return repository.save(dtoToDao(studentDto));
 	}
 	
 	private StudentDTO daoToDto(Student stud) {
