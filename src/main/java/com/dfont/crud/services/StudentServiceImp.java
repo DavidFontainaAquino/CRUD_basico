@@ -15,16 +15,14 @@ public class StudentServiceImp implements StudentService {
 	
 	@Autowired
 	private StudentRepository repository;
-	private static Student student = new Student();
-	private static StudentDTO studentDTO =new StudentDTO();
-	
 	@Override
 	public List<StudentDTO> getAllStudents() {
-		List<StudentDTO> listDTO = new ArrayList<>();
-		for (Student student : repository.findAll()) {
-			listDTO.add(daoToDto(student));
+		List<StudentDTO> listStudentDTO = new ArrayList<>();
+		List<Student> listStudentDao = repository.findAll();
+		for (Student studentDao : listStudentDao) {
+			listStudentDTO.add(daoToDto(studentDao));
 		}
-		return listDTO;
+		return listStudentDTO;
 	}
 
 	@Override
@@ -32,8 +30,10 @@ public class StudentServiceImp implements StudentService {
 		repository.save(dtoToDao(studentDto));
 	}
 	
-	private static  StudentDTO daoToDto(Student stud) {
-		
+	private StudentDTO daoToDto(Student stud) {
+
+		StudentDTO studentDTO=new StudentDTO();
+				
 		studentDTO.setId(stud.getId());
 		studentDTO.setName(stud.getName());
 		studentDTO.setLast_name(stud.getLastName());
@@ -42,13 +42,15 @@ public class StudentServiceImp implements StudentService {
 		return studentDTO;
 	}
 	
-	private static Student dtoToDao(StudentDTO studentDto) {
+	private Student dtoToDao(StudentDTO studentDto) {
+
+		Student studentDao=new Student();
 		
-		student.setId(studentDto.getId());
-		student.setName(studentDto.getName());
-		student.setLastName(studentDTO.getLast_name());
-		student.setEmail(studentDto.getEmail());
+		studentDao.setId(studentDto.getId());
+		studentDao.setName(studentDto.getName());
+		studentDao.setLastName(studentDto.getLast_name());
+		studentDao.setEmail(studentDto.getEmail());
 		
-		return student;
+		return studentDao;
 	}
 }
