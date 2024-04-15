@@ -41,6 +41,7 @@
             <th scope="col">Apellido </th>
             <th scope="col">Nombre</th>
             <th scope="col">Email</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -49,6 +50,12 @@
             <td th:text="${student.last_name}">
             <td th:text="${student.name}">
             <td th:text="${student.email}">
+            <td >
+              <div class="d-grid gap-2 d-md-block">
+                <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-info">Editar</a>
+                <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger">Eliminar</a>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>

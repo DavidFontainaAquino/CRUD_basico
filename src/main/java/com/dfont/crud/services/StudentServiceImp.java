@@ -2,6 +2,7 @@ package com.dfont.crud.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,12 +27,37 @@ public class StudentServiceImp implements StudentService {
 	}
 
 	@Override
-	public Student saveStudent(StudentDTO studentDto) {
-		return repository.save(dtoToDao(studentDto));
+	public StudentDTO saveStudent(StudentDTO studentDto) {
+		return daoToDto(repository.save(dtoToDao(studentDto)));
+	}
+	
+	@Override
+	public Optional<StudentDTO> getStudentById(Long id) {
+		Optional<Student> optStudent = repository.findById(id);
+		if(optStudent.isPresent()) {
+			return Optional.of(daoToDto(optStudent.get()));
+		}
+		return Optional.empty();
+	}
+	
+	@Override
+	public StudentDTO updateStudent(StudentDTO studentDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteStudent(Long id) {
+		repository.deleteById(id);
+	}
+
+	@Override
+	public Boolean studentExistById(Long id) {
+		return repository.existsById(id);
 	}
 	
 	private StudentDTO daoToDto(Student stud) {
-
+		
 		StudentDTO studentDTO=new StudentDTO();
 				
 		studentDTO.setId(stud.getId());
@@ -50,7 +76,6 @@ public class StudentServiceImp implements StudentService {
 		studentDao.setName(studentDto.getName());
 		studentDao.setLastName(studentDto.getLast_name());
 		studentDao.setEmail(studentDto.getEmail());
-		
 		return studentDao;
 	}
 }
