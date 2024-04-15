@@ -11,6 +11,9 @@ public class StudentDTO implements Serializable {
 	private String name;
 	private String last_name;
 	private String email;
+
+	public StudentDTO() {
+	}
 	public long getId() {
 		return id;
 	}
